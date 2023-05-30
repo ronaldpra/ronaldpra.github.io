@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Generador de Horario</title>
+  <style>
+    body {
+      background-image: url("https://fondosmil.com/fondo/21026.jpg");
+      background-repeat: no-repeat;
+      background-size: cover;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      color: #333333;
+    }
+
+    button {
+      background-color: #4CAF50;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin-bottom: 20px;
+      cursor: pointer;
+    }
+
+    #horario {
+      background-color: white;
+      border-radius: 5px;
+      padding: 20px;
+    }
+
+    h3 {
+      color: #333333;
+      margin-top: 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+  </style>
+  <script>
+    function generarHorario() {
+      var hobbies = [];
+      var actividadesFisicas = [];
+      var deporteFavorito = "";
+      var tiposCharla = [];
+
+      for (var i = 1; i <= 5; i++) {
+        hobbies.push(prompt("Ingresa tu hobby " + i));
+      }
+
+      for (var i = 1; i <= 2; i++) {
+        actividadesFisicas.push(prompt("Ingresa tu actividad fisica ligera " + i));
+      }
+
+      deporteFavorito = prompt("Ingresa tu deporte favorito");
+
+      for (var i = 1; i <= 2; i++) {
+        tiposCharla.push(prompt("Ingresa un tipo de charla " + i));
+      }
+
+      var diasSemana = ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes"];
+
+      var horario = "";
+
+      for (var i = 0; i < diasSemana.length; i++) {
+        horario += "<h3>" + diasSemana[i] + "</h3>";
+
+        var actividades = actividadesFisicas.slice(0, 2).map(a => "realizar " + a + " ").concat(hobbies.slice(0, 2).map(h => "Tomate un tiempo para " + h + " "), tiposCharla.slice(0, 2).map(c => "Charla con " + c + " "));
+        actividades.sort(function() {
+          return 0.5 - Math.random();
+        });
+
+        actividades = actividades.slice(0, 8);
+
+        var horaInicio = 8;
+        var duracionActividad = 2;
+
+        horario += "<table>";
+        horario += "<tr><th>Hora</th><th>Actividad</th></tr>";
+
+        for (var j = 0; j < actividades.length; j++) {
+          var hora = horaInicio + j * duracionActividad;
+          var horaFormateada = ("0" + Math.floor(hora)).slice(-2) + ":00";
+
+          horario += "<tr><td>" + horaFormateada + "</td><td>" + actividades[j] + "</td></tr>";
+        }
+
+        horario += "</table>";
+      }
+
+      document.getElementById("horario").innerHTML = horario;
+    }
+  </script>
+</head>
+<body>
+  <h1>Generador de Horario</h1>
+    <button onclick="generarHorario()">Generar Horario</button>
+    <div id="horario"></div>
+  </body>
+</html>
